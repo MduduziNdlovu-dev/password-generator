@@ -1,0 +1,67 @@
+# Node modules (both client and server)
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# dotenv environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# build output
+dist/
+client/dist/
+server/dist/
+build/
+client/build/
+
+# Mac system files
+.DS_Store
+
+# IDE settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+Thumbs.db
+Desktop.ini
+
+# Vite cache
+client/.vite/
+
+# MongoDB dump files
+*.gz
+
+# Optional: test coverage reports
+coverage/
+
+# Optional: logs and error dumps
+*.log
+logs/
+*.pid
+*.seed
+*.pid.lock
+
+# Optional: specific to JetBrains IDEs
+*.iml
+out/
+
+# Misc
+*.tgz
+*.zip
+*.bak
+*.swp
+
+# Ignore local databases
+*.sqlite
+*.db
