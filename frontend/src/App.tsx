@@ -4,6 +4,8 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import { AuthProvider, useAuth } from "./context/AuthContext"
+import GeneratePage from "./pages/GeneratePage"
+import SavedPasswordsPage from "./pages/SavedPasswordsPage"
 
 const PrivateRoute = ({children}: {children: React.ReactNode}) => {
   const {token} = useAuth();
@@ -17,9 +19,10 @@ function App() {
       <Toaster position="top-right" richColors />
       
       <Routes>
-        <Route path="/" element={<Home />} />  
+        <Route path="/" element={<GeneratePage />} />  
         <Route path="/login" element={<Login />} />  
         <Route path="/register" element={<Register />} />  
+        <Route path="/saved" element={<SavedPasswordsPage/>} />
         <Route path="*" element={<Navigate to="/" />} />  
       </Routes>     
     </AuthProvider>
