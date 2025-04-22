@@ -35,7 +35,7 @@ export function LoginForm({
 
       login(token);
       toast.success("Login successful!")
-      navigate("/dashboard")
+      navigate("/Home")
 
     } catch (error) {
       console.error(error);

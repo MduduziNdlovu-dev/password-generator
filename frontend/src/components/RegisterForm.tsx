@@ -45,7 +45,7 @@ export function RegisterForm({
 
           localStorage.setItem("token", res.data.token)
           toast.success("Registration successful!")
-          navigate('/dashboard')
+          navigate('/Home')
         } catch (error: any) {
           console.error("Error response:", error.response);
           console.error("Error message:", error.message);
