@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { FormEvent, useState } from "react"
 import { toast } from "sonner"
+import API from "@/api/axios"
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -19,14 +21,43 @@ export function RegisterForm({
     const [confirmPassword, setConfirmPassword] = useState<string>("")
     const [error, setError] = useState<string>("")
 
+    const [showPassword, setShowPassword] = useState<boolean>(false)
+
+    const togglePassword = () => setShowPassword(!showPassword)
+
+    const navigate = useNavigate()
+
     const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         if (password !== confirmPassword){
             setError("Passwords do not match")
-            toast.error(error)
+            toast.error("Passwords do not match")
             return
         }
+        try {
+          const res = await API.post("/auth/register", {
+            username,
+            name,
+            email,
+            password,
+          });
+
+          localStorage.setItem("token", res.data.token)
+          toast.success("Registration successful!")
+          navigate('/dashboard')
+        } catch (error: any) {
+          console.error("Error response:", error.response);
+          console.error("Error message:", error.message);
+          if (error.response && error.response.status === 400) {
+            setError("User already exists");
+            toast.error(error.response.data.message);
+          } else {
+            setError("Registration failed");
+            toast.error(error.message);
+          }
+        }
+       
 
     }
 
@@ -79,10 +110,14 @@ export function RegisterForm({
                   <Label htmlFor="password">Password</Label>
                   
                 </div>
-                <Input id="password" name="password" type="password" required 
+                <Input id="password" name="password" type={showPassword ? "text" : "password"} required 
                     onChange={(e) => setPassword(e.target.value)}
                     value={password}
+                    
                 />
+                <Button  onClick={togglePassword} className="text-sm text-muted-foreground hover:text-primary">
+                  {showPassword ? "Hide" : "Show"} Password
+                </Button>
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">

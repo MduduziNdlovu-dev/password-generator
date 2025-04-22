@@ -7,17 +7,23 @@ dotenv.config();
 
 const app = express();
 
-// test uf api is working
-
-app.get('/', (req,res) => {
-    res.send('API is working');
-})
+app.use(cors(
+    {
+        origin: 'http://localhost:5173', // Replace with your frontend URL
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        credentials: true,
+    }
+));
 
 //middleware section
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+const authRoutes = require('./routes/auth');
+const passwordRoutes = require('./routes/passwords');
+
+app.use('/api/auth', authRoutes);
+app.use('/api/password', passwordRoutes);
 //database connection section
 mongoose.connect(process.env.MONGODB_URI).then(
     () => {
